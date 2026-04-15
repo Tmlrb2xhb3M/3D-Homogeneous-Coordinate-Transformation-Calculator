@@ -11,5 +11,8 @@ function retval = matrix_transformation_caller (coordinate_matrix, vector, trans
 
     case 't'
       retval = matrix_translation_homogeneous_3d(coordinate_matrix, vector);
+
+    otherwise
+      error('Invalid operation, expected "r", "sc", "sh", "t"')
   endswitch
 endfunction
