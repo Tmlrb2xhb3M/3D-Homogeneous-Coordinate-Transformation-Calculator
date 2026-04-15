@@ -1,18 +1,31 @@
-function retval = matrix_transformation_caller (coordinate_matrix, vector, transformation)
-  switch(transformation)
-    case 'r'
-      retval = matrix_rotation_homogeneous_3d(coordinate_matrix, vector);
+function retval = matrix_transformation_caller (coordinate_matrix, vectors, transformations)
+  counter = 1;
+  temp = coordinate_matrix;
+  for i = 1:length(transformations)
+    switch(transformations(i))
+      case 's'
+        continue
 
-    case 'sc'
-      retval = matrix_scaling_homogeneous_3d(coordinate_matrix, vector);
+      case 'r'
+        temp = matrix_rotation_homogeneous_3d(temp, vectors(counter,:));
+        counter = counter + 1;
 
-    case 'sh'
-      retval = matrix_shearing_homogeneous_3d(coordinate_matrix, vector);
+      case 'c'
+        temp = matrix_scaling_homogeneous_3d(temp, vectors(counter,:));
+        counter = counter + 1;
 
-    case 't'
-      retval = matrix_translation_homogeneous_3d(coordinate_matrix, vector);
+      case 'h'
+        temp = matrix_shearing_homogeneous_3d(temp, vectors(counter,:));
+        counter = counter + 1;
 
-    otherwise
-      error('Invalid operation, expected "r", "sc", "sh", "t"')
-  endswitch
+      case 't'
+        temp = matrix_translation_homogeneous_3d(temp, vectors(counter,:));
+        counter = counter + 1;
+
+      otherwise
+        error('Invalid operation, expected "r", "sc", "sh", "t"')
+        return
+    endswitch
+  endfor
+  retval = temp;
 endfunction
