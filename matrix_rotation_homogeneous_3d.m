@@ -14,7 +14,7 @@ function retval = matrix_rotation_homogeneous_3d(coordinate_matrix, degrees)
                                          0,                0,                 1, 0
                                          0,                0,                 0, 1];
   try
-    retval = rotation_matrix * coordinate_matrix';
+    retval = rotation_matrix * coordinate_matrix;
   catch
     error ('Invalid matrix, expected 4x1 matrix')
   end_try_catch
